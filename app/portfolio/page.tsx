@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Navbar } from '@/components/navigation/Navbar'
