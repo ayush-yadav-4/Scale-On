@@ -1,66 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&family=Fira+Code:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap');
 @import 'tailwindcss';
 
-/* Premium Color Theme - Orange & Grey-Black */
+/* Class-based dark mode for the theme toggle (not system preference only). */
+@custom-variant dark (&:is(.dark *));
+
+/* ScaleOn design tokens — high-contrast, professional orange/slate system */
 :root {
-  /* Light Theme Colors */
-  --bg-light: #f9fafb;
-  --bg-light-secondary: #f3f4f6;
-  --bg-light-tertiary: #e5e7eb;
-  
-  --text-light-primary: #1a202c;
-  --text-light-secondary: #4a5568;
-  --text-light-muted: #718096;
-  
-  /* Accent Colors - Orange Spectrum */
-  --accent-primary: #f97316;    /* orange-500 */
-  --accent-secondary: #ea580c;  /* orange-600 */
-  --accent-tertiary: #fb923c;   /* orange-400 */
-  
-  --border-light: #d1d5db;
-  --border-light-hover: #9ca3af;
-  
-  --gradient-primary: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-  --gradient-secondary: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-  --gradient-accent: linear-gradient(135deg, #ea580c 0%, #fb923c 100%);
-  
-  --shadow-sm: 0 1px 2px 0 rgba(26, 32, 44, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(26, 32, 44, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(26, 32, 44, 0.12);
-  --shadow-xl: 0 20px 25px -5px rgba(26, 32, 44, 0.15);
-  --shadow-2xl: 0 25px 50px -12px rgba(26, 32, 44, 0.2);
-  
+  --bg-light: #f7f5f2;
+  --bg-light-secondary: #efece7;
+  --bg-light-tertiary: #e4dfd7;
+
+  --surface: #ffffff;
+  --surface-muted: #f3f0eb;
+  --text-primary: #121826;
+  --text-secondary: #3d4659;
+  --text-muted: #5b6578;
+  --text-on-dark: #f8fafc;
+  --text-on-dark-muted: #d7dee8;
+
+  --accent-primary: #ea580c;
+  --accent-secondary: #c2410c;
+  --accent-tertiary: #f97316;
+
+  --border-light: #d5d0c8;
+  --border-light-hover: #b8b1a6;
+
+  --gradient-primary: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  --gradient-secondary: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  --gradient-accent: linear-gradient(135deg, #c2410c 0%, #f97316 100%);
+
+  --space-section-y: clamp(4.5rem, 8vw, 7rem);
+  --space-section-x: clamp(1rem, 4vw, 2rem);
+  --content-max: 72rem;
+  --prose-max: 40rem;
+  --leading-body: 1.65;
+  --leading-display: 1.12;
+
+  --shadow-sm: 0 1px 2px 0 rgba(18, 24, 38, 0.06);
+  --shadow-md: 0 4px 10px -2px rgba(18, 24, 38, 0.08);
+  --shadow-lg: 0 12px 24px -8px rgba(18, 24, 38, 0.12);
+  --shadow-xl: 0 20px 30px -12px rgba(18, 24, 38, 0.14);
+  --shadow-2xl: 0 28px 40px -16px rgba(18, 24, 38, 0.18);
+
+  /* Legacy aliases used across components */
+  --text-light-primary: var(--text-primary);
+  --text-light-secondary: var(--text-secondary);
+  --text-light-muted: var(--text-muted);
+
   color-scheme: light;
 }
 
-/* Dark Theme */
 html.dark {
-  --bg-light: #0f172a;
-  --bg-light-secondary: #1a202c;
-  --bg-light-tertiary: #2d3748;
-  
-  --text-light-primary: #f7fafc;
-  --text-light-secondary: #e2e8f0;
-  --text-light-muted: #cbd5e1;
-  
-  /* Dark theme accent colors - Orange Spectrum */
-  --accent-primary: #fb923c;   /* orange-400 */
-  --accent-secondary: #f97316; /* orange-500 */
-  --accent-tertiary: #ea580c;  /* orange-600 */
-  
-  --border-light: #2d3748;
-  --border-light-hover: #4a5568;
-  
+  --bg-light: #0b1220;
+  --bg-light-secondary: #111827;
+  --bg-light-tertiary: #1f2937;
+
+  --surface: #111827;
+  --surface-muted: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-on-dark: #f8fafc;
+  --text-on-dark-muted: #cbd5e1;
+
+  --accent-primary: #fb923c;
+  --accent-secondary: #f97316;
+  --accent-tertiary: #fdba74;
+
+  --border-light: #334155;
+  --border-light-hover: #475569;
+
   --gradient-primary: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
   --gradient-secondary: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-  --gradient-accent: linear-gradient(135deg, #ea580c 0%, #fb923c 100%);
-  
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-  
+  --gradient-accent: linear-gradient(135deg, #ea580c 0%, #fdba74 100%);
+
+  --text-light-primary: var(--text-primary);
+  --text-light-secondary: var(--text-secondary);
+  --text-light-muted: var(--text-muted);
+
   color-scheme: dark;
 }
 
@@ -223,7 +240,19 @@ html.dark {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.gradient-text-animate {
   animation: gradient-shift 3s ease infinite;
+}
+
+.bg-gradient-card {
+  background: linear-gradient(
+    145deg,
+    rgba(249, 115, 22, 0.12) 0%,
+    rgba(15, 23, 42, 0.35) 55%,
+    rgba(15, 23, 42, 0.55) 100%
+  );
 }
 
 .gradient-text-secondary {
@@ -352,7 +381,7 @@ html.dark .glass-effect-dark {
 
 /* Theme Variables */
 @theme inline {
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Manrope', sans-serif;
   --font-mono: 'Fira Code', monospace;
   --font-display: 'Space Grotesk', sans-serif;
 }
@@ -360,14 +389,50 @@ html.dark .glass-effect-dark {
 /* Font Utility Classes */
 .font-display {
   font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .font-body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .font-mono-custom {
   font-family: 'Fira Code', monospace;
+}
+
+.section-shell {
+  padding-block: var(--space-section-y);
+  padding-inline: var(--space-section-x);
+}
+
+.section-inner {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.section-copy {
+  max-width: var(--prose-max);
+  margin-inline: auto;
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+}
+
+.section-title {
+  color: var(--text-primary);
+  line-height: var(--leading-display);
+  text-wrap: balance;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
 }
 
 /* Base Styles */
@@ -380,19 +445,37 @@ html.dark .glass-effect-dark {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
   }
   
   body {
-    @apply bg-white text-slate-950 font-sans transition-colors duration-300;
+    @apply font-sans transition-colors duration-300;
+    background: var(--bg-light);
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: var(--leading-body);
     overflow-x: hidden;
   }
   
   html.dark body {
-    @apply bg-slate-950 text-slate-50;
+    background: var(--bg-light);
+    color: var(--text-primary);
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
+    color: var(--text-primary);
+    line-height: var(--leading-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img, svg, video {
+    max-width: 100%;
+    height: auto;
   }
   
   /* Scrollbar Styling */
@@ -427,13 +510,13 @@ html.dark .glass-effect-dark {
   }
 }
 
-/* Selection Styling */
+/* Selection Styling — soft slate, not loud orange */
 ::selection {
-  background-color: rgba(249, 115, 22, 0.18);
+  background-color: rgba(100, 116, 139, 0.22);
   color: inherit;
 }
 
 ::-moz-selection {
-  background-color: rgba(249, 115, 22, 0.18);
+  background-color: rgba(100, 116, 139, 0.22);
   color: inherit;
 }

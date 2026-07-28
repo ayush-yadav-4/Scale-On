@@ -11,22 +11,26 @@ const steps = [
   {
     number: '01',
     title: 'Discover',
-    description: 'We listen first. We learn about your business, goals, and target users before writing a single line of code.',
+    description:
+      'We listen first. We learn about your business, goals, and target users before writing a single line of code.',
   },
   {
     number: '02',
     title: 'Plan',
-    description: 'We create a detailed roadmap — tech stack, timeline, milestones, and deliverables — so there are no surprises.',
+    description:
+      'We create a detailed roadmap — tech stack, timeline, milestones, and deliverables — so there are no surprises.',
   },
   {
     number: '03',
     title: 'Build',
-    description: 'Our team executes with precision. Regular updates, demo calls, and full transparency throughout development.',
+    description:
+      'Our team executes with precision. Regular updates, demo calls, and full transparency throughout development.',
   },
   {
     number: '04',
     title: 'Launch & Scale',
-    description: 'We deploy, test, and hand over. But we don&apos;t disappear — we stay on for support, improvements, and scaling.',
+    description:
+      "We deploy, test, and hand over. But we don't disappear — we stay on for support, improvements, and scaling.",
   },
 ]
 
@@ -39,40 +43,36 @@ export function Process() {
     if (!containerRef.current || !lineRef.current) return
 
     const ctx = gsap.context(() => {
-      // Animate fill line on scroll
       gsap.fromTo(
         lineRef.current,
         { scaleY: 0, transformOrigin: 'top' },
         {
           scaleY: 1,
-          duration: 2,
-          ease: 'power1.inOut',
+          ease: 'none',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 50%',
-            end: 'bottom 50%',
+            start: 'top 55%',
+            end: 'bottom 55%',
             scrub: 1,
           },
-        }
+        },
       )
 
-      // Animate steps
-      stepsRef.current.forEach((step, index) => {
+      stepsRef.current.forEach((step) => {
         if (!step) return
-
         gsap.fromTo(
           step,
-          { opacity: 0.3, y: 20 },
+          { opacity: 0.35, y: 18 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
+            duration: 0.7,
             scrollTrigger: {
               trigger: step,
-              start: 'center 80%',
+              start: 'top 85%',
               once: true,
             },
-          }
+          },
         )
       })
     }, containerRef)
@@ -81,88 +81,99 @@ export function Process() {
   }, [])
 
   return (
-    <section ref={containerRef} className="py-24 bg-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-          <Badge variant="default" className="mb-4">Our Process</Badge>
-          <h2 className="text-5xl font-display font-bold text-[#e8f0fe] mb-4">
+    <section ref={containerRef} className="bg-transparent py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center md:mb-20">
+          <Badge variant="default" className="mb-4">
+            Our Process
+          </Badge>
+          <h2 className="font-display text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
             From Idea to Launch — In 4 Simple Steps
           </h2>
         </div>
 
-        {/* Process Steps */}
-        <div className="max-w-3xl mx-auto">
-          {/* Timeline on Desktop */}
-          <div className="hidden md:block relative">
-            {/* Vertical Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-[#3a3f47] -translate-x-1/2">
+        <div className="mx-auto max-w-3xl">
+          <div className="relative hidden md:block">
+            <div className="absolute top-0 bottom-0 left-1/2 w-1 -translate-x-1/2 bg-[var(--border-light)]">
               <div
                 ref={lineRef}
-                className="w-full bg-gradient-accent origin-top"
-                style={{ scaleY: 0 }}
+                className="h-full w-full origin-top bg-gradient-to-b from-orange-500 to-orange-600"
+                style={{ transform: 'scaleY(0)' }}
               />
             </div>
 
-            {/* Steps */}
-            <div className="space-y-24">
-              {steps.map((step, index) => (
-                <div
-                  key={index}
-                  ref={(el) => {
-                    stepsRef.current[index] = el
-                  }}
-                  className={`relative flex gap-12 ${
-                    index % 2 === 0 ? '' : 'flex-row-reverse'
-                  }`}
-                >
-                  {/* Content */}
-                  <div className="flex-1 pt-4">
-                    <h3 className="text-2xl font-display font-bold text-[#e8f0fe] mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-[#9aa4b2]">{step.description}</p>
-                  </div>
+            <div className="space-y-20">
+              {steps.map((step, index) => {
+                const contentLeft = index % 2 === 0
+                return (
+                  <div
+                    key={step.number}
+                    ref={(el) => {
+                      stepsRef.current[index] = el
+                    }}
+                    className="relative flex items-start gap-10"
+                  >
+                    <div className={`flex-1 pt-1 ${contentLeft ? 'text-right' : 'text-left order-3'}`}>
+                      {contentLeft ? (
+                        <>
+                          <h3 className="mb-2 font-display text-2xl font-bold text-[var(--text-primary)]">
+                            {step.title}
+                          </h3>
+                          <p className="text-[var(--text-secondary)] leading-relaxed">
+                            {step.description}
+                          </p>
+                        </>
+                      ) : (
+                        <span className="font-display text-5xl font-bold text-[var(--accent-primary)] opacity-20">
+                          {step.number}
+                        </span>
+                      )}
+                    </div>
 
-                  {/* Dot */}
-                  <div className="absolute left-1/2 -translate-x-1/2 -translate-y-8 flex flex-col items-center">
-                    <div className="w-6 h-6 rounded-full border-4 border-[#111315] bg-[#f97316] z-10" />
-                  </div>
+                    <div className="relative z-10 mt-2 flex w-5 shrink-0 justify-center order-2">
+                      <div className="h-5 w-5 rounded-full border-4 border-[var(--bg-light)] bg-[#f97316]" />
+                    </div>
 
-                  {/* Step Number */}
-                  <div className="flex-1 text-right pt-4">
-                    <span className="text-6xl font-display font-bold opacity-10 text-[#f97316]">
-                      {step.number}
-                    </span>
+                    <div className={`flex-1 pt-1 ${contentLeft ? 'text-left order-3' : 'text-left'}`}>
+                      {contentLeft ? (
+                        <span className="font-display text-5xl font-bold text-[var(--accent-primary)] opacity-20">
+                          {step.number}
+                        </span>
+                      ) : (
+                        <>
+                          <h3 className="mb-2 font-display text-2xl font-bold text-[var(--text-primary)]">
+                            {step.title}
+                          </h3>
+                          <p className="text-[var(--text-secondary)] leading-relaxed">
+                            {step.description}
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
 
-          {/* Timeline on Mobile */}
-          <div className="md:hidden space-y-8">
+          <div className="space-y-6 md:hidden">
             {steps.map((step, index) => (
               <div
-                key={index}
+                key={step.number}
                 ref={(el) => {
                   stepsRef.current[index] = el
                 }}
-                className="relative pl-12"
+                className="relative border border-[var(--border-light)] bg-[var(--surface)] p-5 pl-14"
               >
-                {/* Vertical Line */}
-                {index < steps.length - 1 && (
-                  <div className="absolute left-2 top-8 bottom-0 w-0.5 bg-gradient-to-b from-[#f97316] to-[#3a3f47]" />
-                )}
-
-                {/* Dot */}
-                <div className="absolute left-0 top-0 w-4 h-4 rounded-full border-2 border-[#050d1a] bg-[#f97316]" />
-
-                {/* Content */}
-                <h3 className="text-xl font-display font-bold text-[#e8f0fe] mb-2">
+                <div className="absolute top-6 left-5 flex h-5 w-5 items-center justify-center rounded-full bg-[#f97316] font-display text-[10px] font-bold text-white">
+                  {index + 1}
+                </div>
+                <h3 className="mb-2 font-display text-xl font-bold text-[var(--text-primary)]">
                   {step.title}
                 </h3>
-                <p className="text-[#9aa4b2]">{step.description}</p>
+                <p className="text-[var(--text-secondary)] leading-relaxed">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>

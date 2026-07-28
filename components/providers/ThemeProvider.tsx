@@ -1,24 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
+/**
+ * Keeps the document theme class in sync after hydration.
+ * Initial theme is applied earlier by the layout beforeInteractive script.
+ */
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false)
-
   useEffect(() => {
-    setMounted(true)
-    const savedTheme = localStorage.getItem('theme') || 'light'
-    
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+    const savedTheme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const shouldDark = savedTheme === 'dark' || (!savedTheme && prefersDark)
+    document.documentElement.classList.toggle('dark', shouldDark)
   }, [])
-
-  if (!mounted) {
-    return <>{children}</>
-  }
 
   return <>{children}</>
 }

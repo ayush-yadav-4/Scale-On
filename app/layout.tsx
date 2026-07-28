@@ -2,13 +2,12 @@ import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import ThemeProvider from '@/components/providers/ThemeProvider'
+import { WebVitals } from '@/components/observability/WebVitals'
 import './globals.css'
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor: '#ffffff',
 }
 
@@ -23,8 +22,9 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/icon.svg',
   },
+  metadataBase: new URL('https://scaleon.io'),
   openGraph: {
     title: 'ScaleOn — IT Agency for Web Development, Cloud & AI Solutions',
     description: 'ScaleOn is a modern IT agency offering full stack web development, cloud solutions, AI agents, and custom websites.',
@@ -56,9 +56,10 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="font-sans antialiased bg-white dark:bg-[#0f1115] text-slate-950 dark:text-slate-50 transition-colors duration-300 overflow-x-hidden">
+      <body className="font-body antialiased overflow-x-hidden">
         <ThemeProvider>
           {children}
+          <WebVitals />
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
