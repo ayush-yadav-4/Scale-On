@@ -20,67 +20,62 @@ export function CTABanner() {
     if (!containerRef.current) return
 
     const ctx = gsap.context(() => {
-      // Section animations
       gsap.fromTo(
         headingRef.current,
-        { y: 50, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
+          duration: 0.7,
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 80%',
             once: true,
           },
-        }
+        },
       )
-
       gsap.fromTo(
         subheadingRef.current,
-        { y: 30, opacity: 0 },
+        { y: 24, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: 0.2,
+          duration: 0.7,
+          delay: 0.12,
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 80%',
             once: true,
           },
-        }
+        },
       )
-
       gsap.fromTo(
         buttonRef.current,
-        { scale: 0.9, opacity: 0 },
+        { scale: 0.96, opacity: 0 },
         {
           scale: 1,
           opacity: 1,
-          duration: 0.6,
-          delay: 0.4,
+          duration: 0.55,
+          delay: 0.24,
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 80%',
             once: true,
           },
-        }
+        },
       )
 
-      // Orbiting orbs animation
       gsap.to(orb1Ref.current, {
-        x: 100,
-        y: -50,
+        x: 80,
+        y: -40,
         duration: 10,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
       })
-
       gsap.to(orb2Ref.current, {
-        x: -100,
-        y: 50,
+        x: -80,
+        y: 40,
         duration: 12,
         repeat: -1,
         yoyo: true,
@@ -95,48 +90,44 @@ export function CTABanner() {
   return (
     <section
       ref={containerRef}
-      className="relative py-24 bg-transparent overflow-hidden"
+      className="relative overflow-hidden bg-transparent py-20 md:py-28"
     >
-      {/* Animated Orbs */}
       <div
         ref={orb1Ref}
-        className="absolute -top-32 -left-40 w-96 h-96 bg-[rgba(249,115,22,0.06)] rounded-full blur-3xl pointer-events-none"
+        className="pointer-events-none absolute -top-32 -left-40 h-96 w-96 rounded-full bg-[rgba(249,115,22,0.08)] blur-3xl"
+        aria-hidden="true"
       />
       <div
         ref={orb2Ref}
-        className="absolute -bottom-32 -right-40 w-96 h-96 bg-[rgba(234,88,12,0.06)] rounded-full blur-3xl pointer-events-none"
+        className="pointer-events-none absolute -right-40 -bottom-32 h-96 w-96 rounded-full bg-[rgba(234,88,12,0.08)] blur-3xl"
+        aria-hidden="true"
       />
-
-      {/* Top and Bottom Glow Lines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent opacity-50" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f97316] to-transparent opacity-50" />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <h2
           ref={headingRef}
-          className="text-5xl font-display font-bold text-[#e8f0fe] mb-6"
+          className="mb-5 font-display text-4xl font-bold text-[var(--text-primary)] md:text-5xl"
         >
           Ready to Build Something Great?
         </h2>
-
         <p
           ref={subheadingRef}
-          className="text-lg text-[#9aa4b2] mb-12 max-w-2xl mx-auto"
+          className="mx-auto mb-10 max-w-2xl text-lg text-[var(--text-secondary)]"
         >
-          Let&apos;s talk about your project. First consultation is free, fast, and no-commitment.
+          Let&apos;s talk about your project. First consultation is free, fast, and
+          no-commitment.
         </p>
-
-        <div ref={buttonRef} className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-          <Button size="lg" variant="primary" asChild>
+        <div
+          ref={buttonRef}
+          className="mb-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4"
+        >
+          <Button size="lg" variant="primary" asChild className="min-h-12 px-7">
             <Link href="/contact">Book a Free Call</Link>
           </Button>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/contact">Learn More</Link>
+          <Button size="lg" variant="secondary" asChild className="min-h-12 px-7">
+            <Link href="/services">Explore Services</Link>
           </Button>
         </div>
-
-        <p className="text-sm text-[#9aa4b2]">
+        <p className="text-sm text-[var(--text-muted)]">
           No spam. No pressure. Just a real conversation about your goals.
         </p>
       </div>

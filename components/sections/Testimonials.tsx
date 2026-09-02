@@ -11,19 +11,19 @@ gsap.registerPlugin(ScrollTrigger)
 const testimonials = [
   {
     quote:
-      "ScaleOn delivered our entire platform in under 6 weeks. Clean code, great communication, and they actually understood what we were trying to build.",
+      'ScaleOn delivered our entire platform in under 6 weeks. Clean code, great communication, and they actually understood what we were trying to build.',
     author: 'Rohan M.',
     title: 'Founder, SaaS Startup',
   },
   {
     quote:
-      "We needed an AI chatbot integrated into our operations within a month. ScaleOn made it happen — and it worked exactly as we envisioned.",
+      'We needed an AI chatbot integrated into our operations within a month. ScaleOn made it happen — and it worked exactly as we envisioned.',
     author: 'Priya S.',
     title: 'Operations Head, Logistics Firm',
   },
   {
     quote:
-      "From the landing page to the backend API, everything was handled professionally. These guys know their craft.",
+      'From the landing page to the backend API, everything was handled professionally. These guys know their craft.',
     author: 'Arjun K.',
     title: 'Co-Founder, D2C Brand',
   },
@@ -37,25 +37,25 @@ export function Testimonials() {
     if (!containerRef.current) return
 
     const ctx = gsap.context(() => {
-      // Section title
-      gsap.fromTo(
-        containerRef.current?.querySelector('h2'),
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 80%',
-            once: true,
+      const heading = containerRef.current?.querySelector('h2')
+      if (heading) {
+        gsap.fromTo(
+          heading,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 80%',
+              once: true,
+            },
           },
-        }
-      )
+        )
+      }
 
-      // Card animations with fan effect
       const cards = cardsRef.current
-
       gsap.fromTo(
         cards[0],
         { x: -50, y: 30, opacity: 0, rotationZ: -5 },
@@ -71,9 +71,8 @@ export function Testimonials() {
             start: 'top 80%',
             once: true,
           },
-        }
+        },
       )
-
       gsap.fromTo(
         cards[1],
         { y: 50, opacity: 0 },
@@ -88,9 +87,8 @@ export function Testimonials() {
             start: 'top 80%',
             once: true,
           },
-        }
+        },
       )
-
       gsap.fromTo(
         cards[2],
         { x: 50, y: 30, opacity: 0, rotationZ: 5 },
@@ -100,14 +98,14 @@ export function Testimonials() {
           opacity: 1,
           rotationZ: 0,
           duration: 0.8,
-          ease: 'power2.out',
           delay: 0.3,
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 80%',
             once: true,
           },
-        }
+        },
       )
     }, containerRef)
 
@@ -115,43 +113,41 @@ export function Testimonials() {
   }, [])
 
   return (
-    <section ref={containerRef} className="py-24 bg-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="default" className="mb-4">What Clients Say</Badge>
-          <h2 className="text-5xl font-display font-bold text-[#e8f0fe] mb-4">
+    <section ref={containerRef} className="bg-transparent py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 text-center md:mb-16">
+          <Badge variant="default" className="mb-4">
+            What Clients Say
+          </Badge>
+          <h2 className="font-display text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
             Real Words from Real Clients
           </h2>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
           {testimonials.map((testimonial, index) => (
             <Card
-              key={index}
+              key={testimonial.author}
               ref={(el) => {
                 cardsRef.current[index] = el
               }}
               variant="glass"
-              className="relative"
+              className="relative overflow-hidden px-2"
             >
-              {/* Quote Mark */}
-              <div className="absolute -top-4 -left-2 text-8xl font-display opacity-5 text-[#f97316]">
-                "
+              <div
+                className="pointer-events-none absolute top-2 left-4 font-display text-7xl leading-none text-[var(--accent-primary)] opacity-10"
+                aria-hidden="true"
+              >
+                &ldquo;
               </div>
-
-              {/* Quote */}
-              <p className="text-[#e8f0fe] mb-8 italic relative z-10">
-                "{testimonial.quote}"
+              <p className="relative z-10 mb-8 px-4 pt-4 text-[var(--text-primary)] italic leading-relaxed">
+                &ldquo;{testimonial.quote}&rdquo;
               </p>
-
-              {/* Author */}
-              <div className="border-t border-[rgba(249,115,22,0.12)] pt-6">
-                <p className="font-display font-semibold text-[#e8f0fe]">
+              <div className="border-t border-slate-200 px-4 pt-5 dark:border-slate-700">
+                <p className="font-display font-semibold text-[var(--text-primary)]">
                   {testimonial.author}
                 </p>
-                <p className="text-sm text-[#9aa4b2]">{testimonial.title}</p>
+                <p className="text-sm text-[var(--text-muted)]">{testimonial.title}</p>
               </div>
             </Card>
           ))}

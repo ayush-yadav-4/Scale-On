@@ -1,47 +1,45 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useSyncExternalStore } from 'react'
+
+function subscribe(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange)
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  })
+  window.addEventListener('storage', onStoreChange)
+  return () => {
+    observer.disconnect()
+    window.removeEventListener('storage', onStoreChange)
+  }
+}
+
+function getSnapshot() {
+  return document.documentElement.classList.contains('dark')
+}
+
+function getServerSnapshot() {
+  return false
+}
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    const isDarkMode = document.documentElement.classList.contains('dark')
-    setIsDark(isDarkMode)
-  }, [])
+  const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
   const toggleTheme = () => {
-    const newDarkMode = !isDark
-    setIsDark(newDarkMode)
-    
-    if (newDarkMode) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }
-
-  if (!mounted) {
-    return (
-      <button
-        className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-        aria-label="Toggle theme"
-      >
-        <Sun className="w-5 h-5" />
-      </button>
-    )
+    const nextDark = !document.documentElement.classList.contains('dark')
+    document.documentElement.classList.toggle('dark', nextDark)
+    localStorage.setItem('theme', nextDark ? 'dark' : 'light')
   }
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
       className="relative inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 group"
-      aria-label="Toggle theme"
+      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      aria-pressed={isDark}
     >
       <div className="relative w-5 h-5">
         <Sun

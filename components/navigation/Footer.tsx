@@ -1,77 +1,106 @@
-'use client'
-
-import React from 'react'
 import Link from 'next/link'
-import { Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand Column */}
+    <footer className="border-t border-[var(--border-light)] bg-[var(--surface)]">
+      <div className="section-inner section-shell !pb-8 px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div>
-            <h3 className="font-display font-bold text-lg mb-2 text-slate-950 dark:text-white">
+            <h3 className="mb-3 font-display text-lg font-bold text-[var(--text-primary)]">
               Scale<span className="gradient-text">On</span>
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+            <p className="max-w-xs text-sm leading-relaxed text-[var(--text-secondary)]">
               Scale smarter. Build faster. Grow bigger.
             </p>
           </div>
 
-          {/* Company Column */}
           <div>
-            <h4 className="font-display font-semibold text-sm mb-4 text-slate-950 dark:text-white">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/about" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About Us</Link></li>
-              <li><Link href="/about#team" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Our Team</Link></li>
-              <li><Link href="/contact" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Careers</Link></li>
-              <li><Link href="/blog" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Blog</Link></li>
+            <h4 className="mb-4 font-display text-sm font-semibold text-[var(--text-primary)]">
+              Company
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              {[
+                { href: '/about', label: 'About Us' },
+                { href: '/about#team', label: 'Our Team' },
+                { href: '/contact', label: 'Contact' },
+                { href: '/blog', label: 'Blog' },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-primary)]"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Services Column */}
           <div>
-            <h4 className="font-display font-semibold text-sm mb-4 text-slate-950 dark:text-white">Services</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/services#web-dev" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Full Stack Development</Link></li>
-              <li><Link href="/services#cloud" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Cloud Solutions</Link></li>
-              <li><Link href="/services#ai" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">AI Agents & Automation</Link></li>
-              <li><Link href="/services#web-design" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Custom Website Design</Link></li>
+            <h4 className="mb-4 font-display text-sm font-semibold text-[var(--text-primary)]">
+              Services
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              {[
+                { href: '/services#web-dev', label: 'Full Stack Development' },
+                { href: '/services#cloud', label: 'Cloud Solutions' },
+                { href: '/services#ai', label: 'AI Agents & Automation' },
+                { href: '/services#web-design', label: 'Custom Website Design' },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-primary)]"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Column */}
           <div>
-            <h4 className="font-display font-semibold text-sm mb-4 text-slate-950 dark:text-white">Contact</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                <Mail size={16} />
-                <a href="mailto:hello@scaleon.io">hello@scaleon.io</a>
+            <h4 className="mb-4 font-display text-sm font-semibold text-[var(--text-primary)]">
+              Contact
+            </h4>
+            <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
+              <li className="flex items-center gap-2">
+                <Mail size={16} aria-hidden="true" className="shrink-0" />
+                <a
+                  href="mailto:hello@scaleon.io"
+                  className="transition-colors hover:text-[var(--accent-primary)]"
+                >
+                  hello@scaleon.io
+                </a>
               </li>
-              <li className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                <Phone size={16} />
-                <a href="tel:+91xxxxx">+91 XXXXX XXXXX</a>
-              </li>
-              <li className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                <MapPin size={16} />
+              <li className="flex items-center gap-2">
+                <MapPin size={16} aria-hidden="true" className="shrink-0" />
                 <span>India (Global)</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-200 dark:border-slate-800 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-            <p>© {currentYear} ScaleOn. All rights reserved.</p>
-            <div className="flex gap-4">
-              <Link href="#" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Policy</Link>
-              <span>|</span>
-              <Link href="#" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Terms of Service</Link>
-            </div>
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-[var(--border-light)] pt-6 text-sm text-[var(--text-muted)] md:flex-row">
+          <p>© {currentYear} ScaleOn. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-[var(--accent-primary)]"
+            >
+              Privacy Policy
+            </Link>
+            <span aria-hidden="true">|</span>
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-[var(--accent-primary)]"
+            >
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>

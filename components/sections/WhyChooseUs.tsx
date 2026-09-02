@@ -9,10 +9,10 @@ import { GradientText } from '@/components/ui/GradientText'
 gsap.registerPlugin(ScrollTrigger)
 
 const stats = [
-  { number: 50, suffix: '+', label: 'Projects Delivered' },
-  { number: 30, suffix: '+', label: 'Happy Clients' },
-  { number: 3, suffix: 'x', label: 'Faster Delivery' },
-  { number: 24, suffix: '/7', label: 'Support' },
+  { number: 4, suffix: '', label: 'Core Service Areas' },
+  { number: 3, suffix: '', label: 'Specialist Team Members' },
+  { number: 1, suffix: '', label: 'Dedicated Delivery Contact' },
+  { number: 24, suffix: 'h', label: 'Weekday Response Target' },
 ]
 
 export function WhyChooseUs() {
@@ -25,7 +25,6 @@ export function WhyChooseUs() {
     const ctx = gsap.context(() => {
       statRefs.current.forEach((stat, index) => {
         if (!stat) return
-
         const numberEl = stat.querySelector('[data-number]')
         if (!numberEl) return
 
@@ -34,15 +33,15 @@ export function WhyChooseUs() {
           { innerText: '0' },
           {
             innerText: stats[index].number,
-            duration: 2,
+            duration: 1.8,
             ease: 'power1.out',
             snap: { innerText: 1 },
             scrollTrigger: {
               trigger: stat,
-              start: 'center 80%',
+              start: 'center 85%',
               once: true,
             },
-          }
+          },
         )
       })
     }, containerRef)
@@ -51,10 +50,13 @@ export function WhyChooseUs() {
   }, [])
 
   return (
-    <section ref={containerRef} className="py-24 bg-transparent relative overflow-hidden">
-      {/* Grid Background */}
+    <section
+      ref={containerRef}
+      className="relative overflow-hidden bg-transparent py-20 md:py-28"
+    >
       <div
-        className="absolute inset-0 opacity-5"
+        className="pointer-events-none absolute inset-0 opacity-[0.4]"
+        aria-hidden="true"
         style={{
           backgroundImage: `
             linear-gradient(rgba(249,115,22,0.08) 1px, transparent 1px),
@@ -64,44 +66,40 @@ export function WhyChooseUs() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="default" className="mb-4">Why Choose Us</Badge>
-          <h2 className="text-5xl font-display font-bold mb-4">
-            We&apos;re Not Just Developers.<br />
-            <GradientText animate>We&apos;re Growth Partners</GradientText>
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 text-center md:mb-16">
+          <Badge variant="default" className="mb-4">
+            Why Choose Us
+          </Badge>
+          <h2 className="mb-4 font-display text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
+            We&apos;re Not Just Developers.
+            <br />
+            <span className="text-[var(--accent-primary)]">We&apos;re Growth Partners</span>
           </h2>
-          <p className="text-[#9aa4b2] text-lg max-w-2xl mx-auto">
-            At ScaleOn, we combine technical depth with business thinking. Every solution we build is designed to perform, scale, and deliver real results.
+          <p className="mx-auto max-w-2xl text-lg text-[var(--text-secondary)]">
+            At ScaleOn, we combine technical depth with business thinking. Every
+            solution we build is designed to perform, scale, and deliver real results.
           </p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
           {stats.map((stat, index) => (
             <div
-              key={index}
+              key={stat.label}
               ref={(el) => {
                 statRefs.current[index] = el
               }}
-              className="text-center group cursor-pointer"
+              className="group cursor-default text-center"
             >
-              {/* Number */}
-              <div className="mb-4 text-5xl font-display font-bold">
+              <div className="mb-3 font-display text-4xl font-bold md:text-5xl">
                 <GradientText>
                   <span data-number>0</span>
                   {stat.suffix}
                 </GradientText>
               </div>
-
-              {/* Label */}
-              <p className="text-[#9aa4b2] group-hover:text-[#e8f0fe] transition-colors duration-300">
+              <p className="text-sm text-[var(--text-secondary)] transition-colors group-hover:text-[var(--text-primary)] md:text-base">
                 {stat.label}
               </p>
-
-              {/* Bottom Border */}
-              <div className="mt-6 h-1 bg-gradient-to-r from-transparent via-[#f97316] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           ))}
         </div>

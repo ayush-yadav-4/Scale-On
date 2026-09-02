@@ -25,41 +25,41 @@ export function Features() {
     if (!containerRef.current) return
 
     const ctx = gsap.context(() => {
-      // Section title
-      gsap.fromTo(
-        containerRef.current?.querySelector('h2'),
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 80%',
-            once: true,
+      const heading = containerRef.current?.querySelector('h2')
+      if (heading) {
+        gsap.fromTo(
+          heading,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 80%',
+              once: true,
+            },
           },
-        }
-      )
+        )
+      }
 
-      // Feature items
       itemsRef.current.forEach((item, index) => {
         if (!item) return
-
         gsap.fromTo(
           item,
-          { x: -30, opacity: 0 },
+          { x: -24, opacity: 0 },
           {
             x: 0,
             opacity: 1,
-            duration: 0.6,
-            delay: index * 0.08,
+            duration: 0.55,
+            delay: index * 0.07,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: containerRef.current,
               start: 'top 80%',
               once: true,
             },
-          }
+          },
         )
       })
     }, containerRef)
@@ -68,33 +68,33 @@ export function Features() {
   }, [])
 
   return (
-    <section ref={containerRef} className="py-24 bg-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="default" className="mb-4">Tech Stack</Badge>
-          <h2 className="text-5xl font-display font-bold text-[#e8f0fe] mb-4">
+    <section ref={containerRef} className="bg-transparent py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-14 text-center md:mb-16">
+          <Badge variant="default" className="mb-4">
+            Tech Stack
+          </Badge>
+          <h2 className="mb-4 font-display text-4xl font-bold text-[var(--text-primary)] md:text-5xl">
             Built for the Real World
           </h2>
-          <p className="text-[#9aa4b2] text-lg">
+          <p className="text-lg text-[var(--text-secondary)]">
             We solve real business problems with modern technology
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
-              key={index}
+              key={feature}
               ref={(el) => {
                 itemsRef.current[index] = el
               }}
-              className="flex items-center gap-4 p-6 bg-[rgba(249,115,22,0.08)] hover:bg-[rgba(249,115,22,0.12)] rounded-xl transition-all duration-300 border border-[rgba(249,115,22,0.12)] hover:border-[rgba(249,115,22,0.3)]"
+              className="flex items-center gap-4 rounded-xl border border-slate-200 bg-orange-500/10 p-5 transition-all duration-300 hover:border-slate-300 hover:bg-orange-500/15 dark:border-slate-700 dark:hover:border-slate-600"
             >
-              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#f97316] flex items-center justify-center">
-                <Check size={16} className="text-black" />
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f97316]">
+                <Check size={14} className="text-black" aria-hidden="true" />
               </div>
-              <span className="text-[#e8f0fe] font-body">{feature}</span>
+              <span className="font-medium text-[var(--text-primary)]">{feature}</span>
             </div>
           ))}
         </div>
